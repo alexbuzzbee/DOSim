@@ -1,0 +1,4 @@
+#!/bin/bash
+
+DSPATH=~/.dosim:~/.dosim/dos
+

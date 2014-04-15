@@ -1,0 +1,4 @@
+# The number of seconds to wait before showing the message "Starting DOS simulator..."
+dosPreBootDelay=3
+# The number of seconds to show the message "Starting DOS simulator..."
+dosBootDelay=5

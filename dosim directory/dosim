@@ -1,0 +1,15 @@
+#! /bin/bash
+
+function main()
+{
+clear
+source ~/.dosim/config.dssys
+sleep $dosPreBootDelay
+echo "Starting DOS simulator..."
+sleep $dosBootDelay
+cd ~/.dosim
+./command.dscom
+exit 0
+}
+
+main
