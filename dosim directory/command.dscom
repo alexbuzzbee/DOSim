@@ -2,37 +2,45 @@
 
 keeprunning="true"
 
-function execCommand()
-{
-case $1 in
-dir)
-ls -la $2
-;;
-cd)
-cd $2
-;;
-mkdir)
-mkdir $2
-;;
-type)
-cat $2
-;;
-exit)
-keeprunning="false"
-*)
-esac
+function runExternal() {
+  local BashPATH=$PATH
+  $PATH=$DSPATH
+  $1 $2 $3 $4 $5
+  $PATH=$BashPATH
 }
 
-function main()
-{
-local cmd=""
+function execCommand() {
+  case $1 in
+    "dir")
+      ls -la $2
+    ;;
+    "cd")
+      cd $2 $3
+    ;;
+    "mkdir")
+      mkdir $2 $3
+    ;;
+    "type")
+      cat $2
+    ;;
+    "exit")
+      keeprunning="false"
+    ;;
+    *)
+      runExternal $1 $2 $3 $4 $5
+    ;;
+  esac
+}
+
+function main() {
+local args[0]=""
 source ./config.dssys
 source ./autoexec.dsbat
 while [ $keeprunning = "true" ]; do
 echo -n $PWD
 echo -n ">"
-read cmd
-execCommand $cmd
+read -a args
+execCommand ${args[@]}
 done
 exit 0
 }
