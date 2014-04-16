@@ -2,6 +2,10 @@
 
 keeprunning="true"
 
+function command_not_found_handle() {
+  echo "Bad command or file name"
+}
+
 function runExternal() {
   local BashPATH=$PATH
   $PATH=$DSPATH
