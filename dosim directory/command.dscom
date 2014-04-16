@@ -11,20 +11,35 @@ function runExternal() {
 
 function execCommand() {
   case $1 in
+    "cd")
+      cd $2 $3
+    ;;
+    "cls")
+      clear
+    ;;
+    "copy")
+      cp $2 $3 $4
+    ;;
+    "del")
+      rm $2 $3
+    ;;
     "dir")
       ls -la $2
     ;;
-    "cd")
-      cd $2 $3
+    "exit")
+      keeprunning="false"
     ;;
     "mkdir")
       mkdir $2 $3
     ;;
+    "path")
+      DSPATH=$2
+    ;;
+    "rename")
+      mv $2 $3 $4
+    ;;
     "type")
       cat $2
-    ;;
-    "exit")
-      keeprunning="false"
     ;;
     *)
       runExternal $1 $2 $3 $4 $5
@@ -37,7 +52,7 @@ local args[0]=""
 source ./config.dssys
 source ./autoexec.dsbat
 while [ $keeprunning = "true" ]; do
-echo -n $PWD
+echo -n $(pwd)
 echo -n ">"
 read -a args
 execCommand ${args[@]}
